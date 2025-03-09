@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="apple-itunes-app" content="app-clip-bundle-id=com.adobe.aero.AppClip">
+    <title>Redirect Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            margin-top: 40px;
+        }
+        .loader {
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid #3498db;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            animation: spin 1s linear infinite;
+            margin: 20px auto;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+    </style>
+</head>
+<body>
+    <h2>Redirecting you to the appropriate page...</h2>
+    <div class="loader"></div>
+    <p id="message">Please wait...</p>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if the device is an iPhone
+            const isIOS = /iPhone|iPad|iPod/.test(navigator.userAgent) && !window.MSStream;
+            
+            // Set the appropriate redirect URL based on device
+            if (isIOS) {
+                document.getElementById('message').textContent = 'Redirecting to Adobe Aero (App Clip)...';
+                // For iOS devices, redirect to the App Clip URL
+                window.location.href = 'https://adobeaero.app.link/nnpEi6KnjRb';
+            } else {
+                document.getElementById('message').textContent = 'Redirecting to Google...';
+                // For Android or desktop devices, redirect to Google
+                window.location.href = 'https://www.google.com';
+            }
+        });
+    </script>
+</body>
+</html>
