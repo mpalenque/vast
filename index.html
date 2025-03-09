@@ -55,8 +55,58 @@
             } : null;
         }
         
+        // Function to detect browser type
+        function getBrowserType() {
+            const userAgent = navigator.userAgent;
+            if (userAgent.match(/CriOS/i)) {
+                return 'Chrome';
+            } else if (userAgent.match(/FxiOS/i)) {
+                return 'Firefox';
+            } else if (userAgent.match(/EdgiOS/i)) {
+                return 'Edge';
+            } else if (userAgent.match(/OPiOS/i)) {
+                return 'Opera';
+            } else if (userAgent.match(/safari/i) && !userAgent.match(/chrome/i)) {
+                return 'Safari';
+            } else {
+                return 'Unknown';
+            }
+        }
+        
+        // Function to try opening link in Safari
+        function tryOpenInSafari(url) {
+            const debugElement = document.getElementById('debug');
+            const browserType = getBrowserType();
+            
+            // Add additional debug info
+            debugElement.innerHTML += `<br>Browser: ${browserType}`;
+            
+            if (browserType !== 'Safari') {
+                // Try to force Safari using universal link format
+                const safariUrl = `x-web-search://?${encodeURIComponent(url)}`;
+                
+                // Try opening in Safari first
+                const safariWindow = window.open(safariUrl, '_self');
+                
+                // If that didn't work, try the regular URL after a short delay
+                setTimeout(() => {
+                    window.location.href = url;
+                }, 500);
+                
+                return true;
+            }
+            
+            // Already in Safari, just open the URL directly
+            window.location.href = url;
+            return true;
+        }
+        
         function tryDirectLink() {
-            window.location.href = aeroLink;
+            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
+                tryOpenInSafari(aeroLink);
+            } else {
+                window.location.href = aeroLink;
+            }
         }
         
         function tryAppStore() {
@@ -81,11 +131,12 @@
                 
                 // For iOS 14+ use the App Clip URL directly
                 if (iOSVersion && iOSVersion.major >= 14) {
-                    tryDirectLink();
+                    // Try to use Safari for better iOS integration
+                    tryOpenInSafari(aeroLink);
                 } else {
                     // For older iOS versions, redirect to App Store
                     messageElement.textContent = 'Your iOS version may not support App Clips. Redirecting to App Store...';
-                    tryAppStore();
+                    window.location.href = appStoreLink;
                 }
                 
                 // Show fallback options after a short timeout
