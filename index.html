@@ -43,7 +43,7 @@
         // Store the Adobe Aero link
         const aeroLink = 'https://ar.adobe.com/landing/?id=aHR0cHM6Ly9jYy1hcGktY3AuYWRvYmUuaW8vYXBpL3YyL2Flcm8vYXNzZXRzL2Y3NzI0MTg4LWIyZWQtNGVhMC1hOWZlLTMxYWMzYjc4MDY1Mz9hcGlfa2V5PUFlcm9fQ29udGVudF9TZXJ2aWNlMQ%3D%3D&platform=ios&version=3&thumbnail=https%3A%2F%2Fcdn.cp.adobe.io%2Fcontent%2F2%2Fdcx%2Ff7724188-b2ed-4ea0-a9fe-31ac3b780653%2Fcontent%2Fthumbnail%2Fversion%2F0&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXT0zJT0pNTC3K10ssKNDLyczL1s%2FLK3DNNPPOywpKsq8rSk1LLSrKzEuPTyrKLy9OLbL1zU%2FKzElVNTIITkxLLMoEAEfSb5dJAAAA&_branch_match_id=1309432057125288738';
         const appStoreLink = 'https://apps.apple.com/us/app/adobe-aero/id1401748913';
-        const googleLink = 'https://www.vastdata.com/';
+        const vastDataLink = 'https://www.vastdata.com/';
         
         // Function to get iOS version
         function getiOSVersion() {
@@ -146,9 +146,9 @@
                 }, 3000);
                 
             } else {                    
-                messageElement.textContent = 'Redirecting to Google...';
-                // For Android or desktop devices, redirect to Google
-                window.location.href = googleLink;
+                messageElement.textContent = 'Redirecting to VAST Data...';
+                // For Android or desktop devices, redirect to VAST Data
+                window.location.href = vastDataLink;
             }
         });
     </script>
