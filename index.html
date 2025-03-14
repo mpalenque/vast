@@ -74,7 +74,7 @@
             }
         }
         
-        // Function to try opening link in Safari
+        // Function to try opening link in current browser or Safari
         function tryOpenInSafari(url) {
             const debugElement = document.getElementById('debug');
             const browserType = getBrowserType();
@@ -82,6 +82,14 @@
             // Add additional debug info
             debugElement.innerHTML += `<br>Browser: ${browserType}`;
             
+            // If Chrome on iOS, open directly in Chrome
+            if (browserType === 'Chrome') {
+                debugElement.innerHTML += `<br>Opening directly in Chrome...`;
+                window.location.href = url;
+                return true;
+            }
+            
+            // For non-Safari browsers (except Chrome which is handled above)
             if (browserType !== 'Safari') {
                 // Try to force Safari using universal link format
                 const safariUrl = `x-web-search://?${encodeURIComponent(url)}`;
