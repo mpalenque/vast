@@ -40,10 +40,11 @@
     </div>
 
     <script>
-        // Store the Adobe Aero link
-        const aeroLink = 'https://mpalenque.github.io/vps-for-web/index_three.html';
+        // Store links
+        const aeroLink = 'https://adobeaero.app.link/nnpEi6KnjRb';
         const appStoreLink = 'https://apps.apple.com/us/app/adobe-aero/id1401748913';
         const vastDataLink = 'https://www.vastdata.com/';
+        const vpsWebLink = 'https://mpalenque.github.io/vps-for-web/index_three.html';
         
         // Function to get iOS version
         function getiOSVersion() {
@@ -103,7 +104,7 @@
         
         function tryDirectLink() {
             if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-                tryOpenInSafari(aeroLink);
+                tryOpenInSafari(vpsWebLink);
             } else {
                 window.location.href = aeroLink;
             }
@@ -127,22 +128,15 @@
             
             // Set the appropriate redirect URL based on device
             if (isIOS) {
-                messageElement.textContent = 'Redirecting to Adobe Aero (App Clip)...';
+                messageElement.textContent = 'Redirecting to VPS Web...';
                 
-                // For iOS 14+ use the App Clip URL directly
-                if (iOSVersion && iOSVersion.major >= 14) {
-                    // Try to use Safari for better iOS integration
-                    tryOpenInSafari(aeroLink);
-                } else {
-                    // For older iOS versions, redirect to App Store
-                    messageElement.textContent = 'Your iOS version may not support App Clips. Redirecting to App Store...';
-                    window.location.href = appStoreLink;
-                }
+                // For iOS, use the VPS Web link
+                tryOpenInSafari(vpsWebLink);
                 
                 // Show fallback options after a short timeout
                 setTimeout(() => {
                     fallbackOptions.style.display = 'block';
-                    messageElement.textContent = 'If the app didn\'t open automatically, please use one of the options below:';
+                    messageElement.textContent = 'If the page didn\'t open automatically, please use one of the options below:';
                 }, 3000);
                 
             } else {                    
