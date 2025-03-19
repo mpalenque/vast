@@ -40,11 +40,12 @@
     </div>
 
     <script>
-        // Store links
-        const aeroLink = 'https://ar.adobe.com/landing/?id=aHR0cHM6Ly9jYy1hcGktY3AuYWRvYmUuaW8vYXBpL3YyL2Flcm8vYXNzZXRzLzU2MTc3MDg1LTA3YzItNDI2MS05NmE1LTJkMzIxYWY4MTAwZD9hcGlfa2V5PUFlcm9fQ29udGVudF9TZXJ2aWNlMQ%3D%3D&platform=ios&version=10&thumbnail=https%3A%2F%2Fcdn.cp.adobe.io%2Fcontent%2F2%2Fdcx%2F56177085-07c2-4261-96a5-2d321af8100d%2Fcontent%2Fthumbnail%2Fversion%2F0&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXT0zJT0pNTC3K10ssKNDLyczL1s%2FLK3DNNPPOywpKsq8rSk1LLSrKzEuPTyrKLy9OLbL1zU%2FKzElVNTIITkxLLMoEAEfSb5dJAAAA&_branch_match_id=1429193419119320007';
-        const appStoreLink = 'https://ar.adobe.com/landing/?id=aHR0cHM6Ly9jYy1hcGktY3AuYWRvYmUuaW8vYXBpL3YyL2Flcm8vYXNzZXRzLzU2MTc3MDg1LTA3YzItNDI2MS05NmE1LTJkMzIxYWY4MTAwZD9hcGlfa2V5PUFlcm9fQ29udGVudF9TZXJ2aWNlMQ%3D%3D&platform=ios&version=10&thumbnail=https%3A%2F%2Fcdn.cp.adobe.io%2Fcontent%2F2%2Fdcx%2F56177085-07c2-4261-96a5-2d321af8100d%2Fcontent%2Fthumbnail%2Fversion%2F0&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXT0zJT0pNTC3K10ssKNDLyczL1s%2FLK3DNNPPOywpKsq8rSk1LLSrKzEuPTyrKLy9OLbL1zU%2FKzElVNTIITkxLLMoEAEfSb5dJAAAA&_branch_match_id=1429193419119320007';
-        const vastDataLink = 'https://www.vastdata.com/';
-        const vpsWebLink = 'https://ar.adobe.com/landing/?id=aHR0cHM6Ly9jYy1hcGktY3AuYWRvYmUuaW8vYXNzZXRzLzI0YTBhMzUxLTRmMmQtNDc4NC05ZWZjLTc3ZjZlMjk4OTI0MT9hcGlfa2V5PUFlcm9fQ29udGVudF9TZXJ2aWNlMQ%3D%3D&platform=ios&version=2&thumbnail=https%3A%2F%2Fcdn.cp.adobe.io%2Fcontent%2F2%2Fdcx%2F24a0a351-4f2d-4784-9efc-77f6e2989241%2Fcontent%2Fthumbnail%2Fversion%2F0&_branch_referrer=H4sIAAAAAAAAA8soKSkottLXT0zJT0pNTC3K10ssKNDLyczL1vcpNSkNN3AuDgxKsq8rSk1LLSrKzEuPTyrKLy9OLbJ1zijKz00FAKbnIoNAAAAA&_branch_match_id=1430630356239263828';
+        // Store links - all pointing to the same URL
+        const targetUrl = 'https://mpalenque.github.io/vps-for-web/index_three.html';
+        const aeroLink = targetUrl;
+        const appStoreLink = targetUrl;
+        const vastDataLink = targetUrl;
+        const vpsWebLink = targetUrl;
         
         // Function to get iOS version
         function getiOSVersion() {
@@ -111,15 +112,11 @@
         }
         
         function tryDirectLink() {
-            if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-                tryOpenInSafari(vpsWebLink);
-            } else {
-                window.location.href = aeroLink;
-            }
+            window.location.href = targetUrl;
         }
         
         function tryAppStore() {
-            window.location.href = appStoreLink;
+            window.location.href = targetUrl;
         }
 
         document.addEventListener('DOMContentLoaded', function() {
@@ -134,24 +131,17 @@
             // Add debug info
             debugElement.innerHTML = `Device: ${navigator.userAgent}<br>iOS: ${isIOS ? 'Yes' : 'No'}${iOSVersion ? `, Version: ${iOSVersion.major}.${iOSVersion.minor}.${iOSVersion.patch}` : ''}`;
             
-            // Set the appropriate redirect URL based on device
-            if (isIOS) {
-                messageElement.textContent = 'Redirecting to VPS Web...';
-                
-                // For iOS, use the VPS Web link
-                tryOpenInSafari(vpsWebLink);
-                
-                // Show fallback options after a short timeout
-                setTimeout(() => {
-                    fallbackOptions.style.display = 'block';
-                    messageElement.textContent = 'If the page didn\'t open automatically, please use one of the options below:';
-                }, 3000);
-                
-            } else {                    
-                messageElement.textContent = 'Redirecting to VAST Data...';
-                // For Android or desktop devices, redirect to VAST Data
-                window.location.href = vastDataLink;
-            }
+            // Redirect to the target URL regardless of device
+            messageElement.textContent = 'Redirecting to the application...';
+            
+            // Use the same URL for all devices
+            window.location.href = targetUrl;
+            
+            // Show fallback options after a short timeout
+            setTimeout(() => {
+                fallbackOptions.style.display = 'block';
+                messageElement.textContent = 'If the page didn\'t open automatically, please use one of the options below:';
+            }, 3000);
         });
     </script>
 </body>
